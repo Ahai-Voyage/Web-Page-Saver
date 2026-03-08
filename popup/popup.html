@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-title">
+        <svg class="icon-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        <h1>网页记录器</h1>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-value" id="stat-today">0</span>
+          <span class="stat-label">今日</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="stat-week">0</span>
+          <span class="stat-label">本周</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="stat-total">0</span>
+          <span class="stat-label">总计</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Quick Access -->
+    <div class="quick-access" id="quick-access">
+      <div class="quick-access-header">
+        <span class="quick-access-title">快捷访问</span>
+        <button class="btn-open-all" id="btn-open-all" title="一键打开全部">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+          </svg>
+          一键打开
+        </button>
+      </div>
+      <div class="quick-access-sites" id="quick-access-sites">
+        <!-- 动态生成 -->
+      </div>
+    </div>
+
+    <!-- Search & Filter -->
+    <div class="search-section">
+      <div class="search-box">
+        <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="搜索标题、网址..." autocomplete="off">
+        <button class="btn-clear" id="clear-search" title="清空搜索">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="view-modes">
+        <button class="view-btn active" data-view="list" title="列表视图">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+        </button>
+        <button class="view-btn" data-view="domain" title="按域名分组">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+          </svg>
+        </button>
+      </div>
+      <div class="actions">
+        <button class="btn-icon" id="btn-refresh" title="刷新">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+            <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+            <path d="M16 21h5v-5"/>
+          </svg>
+        </button>
+        <button class="btn-icon" id="btn-export" title="导出">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </button>
+        <button class="btn-icon btn-danger" id="btn-clear" title="清空记录">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Batch Actions Bar -->
+    <div class="batch-bar" id="batch-bar">
+      <label class="batch-select-all">
+        <input type="checkbox" id="select-all">
+        <span>全选</span>
+      </label>
+      <span class="batch-count" id="batch-count">已选择 0 项</span>
+      <button class="btn-batch-open" id="btn-batch-open">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+        打开选中
+      </button>
+    </div>
+
+    <!-- Export Menu -->
+    <div class="export-menu" id="export-menu">
+      <button class="export-option" data-format="json">导出为 JSON</button>
+      <button class="export-option" data-format="csv">导出为 CSV</button>
+      <button class="export-option" data-format="html">导出为 HTML</button>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="content">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>加载中...</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span class="footer-info">按 Ctrl+Shift+H 快速打开</span>
+      <span class="record-count" id="record-count"></span>
+    </footer>
+  </div>
+
+  <script src="../shared/constants.js"></script>
+  <script src="../shared/utils.js"></script>
+  <script src="../shared/db.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
