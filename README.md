@@ -2,7 +2,7 @@
 
 <div align="center">
 
-一个简洁高效的 Chrome/Edge 浏览器扩展，自动记录您的浏览历史，支持智能去重、快捷访问、批量打开等功能。
+一个简洁高效的 Chrome/Edge 浏览器扩展，自动记录您的浏览历史，支持智能去重、快捷访问、批量打开等功能。（如果你工作需要几个固定网页但每次都要打开，这个插件可以保存这些网页，方便下次直接打开，也可以导出本地文件，放入U盘随时打开）
 
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue)](https://developer.chrome.com/docs/extensions/mv3/intro/)
 [![Chrome](https://img.shields.io/badge/Chrome-88+-green)](https://www.google.com/chrome/)
